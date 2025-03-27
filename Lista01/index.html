@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIPOS DE FUNÇÕES - arrow functions.</title>
+</head>
+<body>
+  <script>
+
+const vetAges = [10, 21, 31, 40];
+
+const sumAges = vet => vet.reduce((sum, age) => sum + age, 0);
+
+const averageAges = vet => (vet.length ? (sumAges(vet) / vet.length).toFixed(1) : 'N/A');
+
+const oldestAge = vet => Math.max(...vet);
+
+const oddAge = vet => {
+    const impares = vet.filter(age => age % 2 !== 0);
+    return impares.length ? impares.join(', ') : 'Nenhuma';
+};
+
+const legalAge = vet => vet.every(age => age >= 18);
+
+const idadeDigitada = parseInt(prompt("Digite uma idade: "), 10);
+
+const checkAge = (vet, idade) => vet.every(age => age >= idade);
+
+const greaterThan = (vet, idade) => vet.filter(age => age >= idade);
+
+const averageAgesThan = (vet, idade) => {
+    const filtered = vet.filter(age => age >= idade);
+    return filtered.length ? (sumAges(filtered) / filtered.length).toFixed(1) : 'N/A';
+};
+
+document.write(`<p>Soma das idades = ${sumAges(vetAges)}</p>`);
+document.write(`<p>Média das idades = ${averageAges(vetAges)}</p>`);
+document.write(`<p>Maior idade = ${oldestAge(vetAges)}</p>`);
+document.write(`<p>Idades ímpares = ${oddAge(vetAges)}</p>`);
+document.write(`<p>Todos são maiores de idade = ${legalAge(vetAges) ? 'Sim' : 'Não'}</p>`);
+document.write(`<p>Todas as idades são maiores ou iguais a ${idadeDigitada} = ${checkAge(vetAges, idadeDigitada) ? 'Sim' : 'Não'}</p>`);
+
+const greaterOrEqual = greaterThan(vetAges, idadeDigitada);
+document.write(`<p>Idades maiores ou iguais a ${idadeDigitada} = ${greaterOrEqual.length ? greaterOrEqual.join(', ') : 'Nenhuma'}</p>`);
+document.write(`<p>Média das idades maiores que ${idadeDigitada} = ${averageAgesThan(vetAges, idadeDigitada)}</p>`);
+
+
+  </script>  
+</body>
+</html>
