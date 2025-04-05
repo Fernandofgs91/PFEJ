@@ -8,9 +8,6 @@
       font-family: Arial, sans-serif;
       margin: 30px;
     }
-    input, button {
-      margin: 5px 0;
-    }
     p {
       margin: 8px 0;
     }
@@ -19,17 +16,13 @@
 <body>
   <h1>Operações com idades</h1>
 
-  <label for="idade-min">Informe uma idade mínima:</label>
-  <input type="number" id="idade-min" />
-  <button onclick="executarOperacoes()">Executar</button>
-
   <div id="resultados"></div>
 
   <script>
     const idades = [12, 17, 20, 25, 31, 44, 18, 7];
 
     const executarOperacoes = () => {
-      const idadeMin = parseInt(document.getElementById('idade-min').value) || 0;
+      const idadeMin = parseInt(prompt("Informe uma idade mínima:")) || 0;
       const resultados = document.getElementById('resultados');
       resultados.innerHTML = '';
 
@@ -77,6 +70,9 @@
         resultados.appendChild(p);
       });
     };
+
+    // Executa automaticamente ao carregar a página
+    window.onload = executarOperacoes;
   </script>
 </body>
 </html>
