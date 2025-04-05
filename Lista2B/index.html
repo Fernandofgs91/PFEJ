@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Trabalhadores</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+    h2 {
+      color: #333;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+    .resposta {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Informações dos Trabalhadores</h1>
+
+  <div id="resultado"></div>
+
+  <script>
+    const trabalhadores = [
+      { nome: "Ana", idade: 18, sexo: "F", salario: 1000 },
+      { nome: "João", idade: 20, sexo: "M", salario: 3000 },
+      { nome: "César", idade: 33, sexo: "M", salario: 1900 },
+      { nome: "Maria", idade: 12, sexo: "F", salario: 7000 },
+      { nome: "Zé", idade: 17, sexo: "M", salario: 2400 },
+    ];
+
+    const resultado = document.getElementById("resultado");
+
+    const maioridade = trabalhadores
+      .filter(pessoa => pessoa.idade >= 18)
+      .map(pessoa => `${pessoa.nome} (${pessoa.idade} anos)`);
+
+    const homens = trabalhadores
+      .filter(pessoa => pessoa.sexo === "M")
+      .map(pessoa => pessoa.nome);
+
+    const pessoaMaiorSalario = trabalhadores.reduce((maior, atual) => 
+      atual.salario > maior.salario ? atual : maior
+    );
+
+    const mulherAcima5000 = trabalhadores
+      .some(pessoa => pessoa.sexo === "F" && pessoa.salario > 5000);
+
+    const salariosHomens = trabalhadores
+      .filter(p => p.sexo === "M")
+      .map(p => p.salario);
+    const mediaHomens = salariosHomens
+      .reduce((acc, val) => acc + val, 0) / salariosHomens.length;
+
+    const salariosMulheres = trabalhadores
+      .filter(p => p.sexo === "F")
+      .map(p => p.salario);
+    const mediaMulheres = salariosMulheres
+      .reduce((acc, val) => acc + val, 0) / salariosMulheres.length;
+
+    resultado.innerHTML = `
+      <div class="resposta">
+        <h2>1. Maiores de idade (nome e idade):</h2>
+        <ul>${maioridade.map(item => `<li>${item}</li>`).join("")}</ul>
+      </div>
+
+      <div class="resposta">
+        <h2>2. Nomes dos homens:</h2>
+        <ul>${homens.map(nome => `<li>${nome}</li>`).join("")}</ul>
+      </div>
+
+      <div class="resposta">
+        <h2>3. Pessoa com maior salário:</h2>
+        <p>Nome: ${pessoaMaiorSalario.nome}, Idade: ${pessoaMaiorSalario.idade}, Sexo: ${pessoaMaiorSalario.sexo}, Salário: R$${pessoaMaiorSalario.salario.toLocaleString('pt-BR')}</p>
+      </div>
+
+      <div class="resposta">
+        <h2>4. Há alguma mulher que ganha mais de R$5.000,00?</h2>
+        <p>${mulherAcima5000 ? "Sim" : "Não"}</p>
+      </div>
+
+      <div class="resposta">
+        <h2>5. Média dos salários:</h2>
+        <p>Homens: R$${mediaHomens.toFixed(2).replace(".", ",")}</p>
+        <p>Mulheres: R$${mediaMulheres.toFixed(2).replace(".", ",")}</p>
+      </div>
+    `;
+  </script>
+</body>
+</html>
