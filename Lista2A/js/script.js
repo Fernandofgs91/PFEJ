@@ -1,8 +1,10 @@
 window.addEventListener('DOMContentLoaded', () => {
 
     const vetIdades = [10, 21, 25, 31, 40, 41];
-
-    const txtIdade = Number(prompt("Informe uma idade a ser usada como parâmetro"));
+    
+    // Captura o input e garante que seja um número válido (se não for, assume 0)
+    const promptInput = prompt("Informe uma idade!");
+    const txtIdade = promptInput !== null ? Number(promptInput) : 0;
 
     // Soma
     const somarIdades = vet => 
@@ -30,17 +32,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const vetorIdadeParam = maioresOuIguais(vetIdades, txtIdade);
 
-    // Exibição moderna (sem document.write)
-    const resultado = `
-        <p>Soma das idades = ${somarIdades(vetIdades)}</p>
-        <p>Média das idades = ${mediaIdades(vetIdades).toFixed(2)}</p>
-        <p>Idades ímpares = ${idadesImpares(vetIdades).join(', ')}</p>
-        <p>Todos são maiores de idade? ${todosMaioresDeIdade(vetIdades)}</p>
-        <p>Todos são maiores que a idade digitada? ${todosMaiores(vetIdades, txtIdade)}</p>
-        <p>Idades maiores ou iguais à idade digitada: ${vetorIdadeParam.join(', ')}</p>
-        <p>Média das idades iguais ou maiores à idade digitada: ${mediaIdades(vetorIdadeParam).toFixed(2)}</p>
+    // Construção do template
+    const resultadoHTML = `
+        <section>
+            <p>Soma das idades = <span class="result">${somarIdades(vetIdades)}</span></p>
+            <p>Média das idades = <span class="result">${mediaIdades(vetIdades).toFixed(2)}</span></p>
+            <p>Idades ímpares = <span class="result">${idadesImpares(vetIdades).join(', ')}</span></p>
+            <p>Todos são maiores de 18? <span class="result">${todosMaioresDeIdade(vetIdades) ? 'Sim' : 'Não'}</span></p>
+            <p>Todos são maiores que ${txtIdade}? <span class="result">${todosMaiores(vetIdades, txtIdade) ? 'Sim' : 'Não'}</span></p>
+            <p>Idades maiores ou iguais a ${txtIdade}: <span class="result">${vetorIdadeParam.length > 0 ? vetorIdadeParam.join(', ') : 'Nenhuma'}</span></p>
+            <p>Média dessas idades: <span class="result">${mediaIdades(vetorIdadeParam).toFixed(2)}</span></p>
+        </section>
     `;
 
-    document.body.innerHTML = resultado;
-
+    // A MÁGICA ACONTECE AQUI: Injeta apenas na div correta
+    const container = document.getElementById('resultados');
+    if (container) {
+        container.innerHTML = resultadoHTML;
+    }
 });
