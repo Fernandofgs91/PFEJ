@@ -1,5 +1,5 @@
 [
-  {nome:"Gadiador", imdb: 8.5, genero: "Ação"},
-  {nome:"O Poderoso Chefão", imdb: 9.5, genero: "Drama"},
-  {nome:"O Ilumidado", imdb: 8.3, genero: "Terror"}
+  {"nome":"Gadiador", "imdb": 8.5, "genero": "Ação"},
+  {"nome":"O Poderoso Chefão", "imdb": 9.5, "genero": "Drama"},
+  {"nome":"O Ilumidado", "imdb": 8.3, "genero": "Terror"}
 ]
