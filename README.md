@@ -10,6 +10,8 @@ Lista 3B - LISTA DE EXERCÍCIOS AJAX:  https://fernandofgs91.github.io/PFEJ/List
 
 Listasala - https://fernandofgs91.github.io/PFEJ/Listatasala/index.html
 
+link do Json depoimentos de clientes: https://fernandofgs91.github.io/PFEJ/Listatasala/json/clientes.json
+
 
 
 
