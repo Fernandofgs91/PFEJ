@@ -8,6 +8,8 @@ Lista 2B - Estrutura JSON para armazenar as informações contidas na tabela: ht
 
 Lista 3B - LISTA DE EXERCÍCIOS AJAX:  https://fernandofgs91.github.io/PFEJ/Lista03B/index.html
 
+Listasala - https://fernandofgs91.github.io/PFEJ/Listasala/index.html
+
 
 
 
