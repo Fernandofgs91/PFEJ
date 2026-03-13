@@ -2,7 +2,7 @@
             const container = document.getElementById('container');
 
             try {
-                const resposta = await fetch('json/depoimentos.json');
+                const resposta = await fetch('json/clientes.json');
                 const data = await resposta.json();
                 const clientes = data.clientes;  // Acesse o array dentro da chave "clientes"
 
