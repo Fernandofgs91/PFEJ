@@ -1,0 +1,24 @@
+{
+    "cUser": [
+        {
+            "Username": "wilton.filho",
+            "Password": "wilton123"
+        },
+        {
+            "Username": "maria.jose",
+            "Password": "123maria"
+        },
+        {
+            "Username": "teste1",
+            "Password": "teste111"
+        },
+        {
+            "Username": "teste2",
+            "Password": "222teste"
+        },
+        {
+            "Username": "ana.carol",
+            "Password": "ana123carol"
+        }
+    ]
+}
