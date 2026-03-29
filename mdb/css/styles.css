@@ -93,7 +93,7 @@ header p {
     background-color: var(--bg-surface);
     color: var(--text-primary);
     transition: all 0.3s ease;
-    appearance: none; /* Remove seta padrão em alguns navegadores */
+    appearance: none;
 }
 
 .genre-select:focus, .genre-select:hover {
@@ -102,21 +102,40 @@ header p {
     box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
 }
 
-/* CONTAINER DE DETALHES */
+/* CONTAINER DE DETALHES E SUMMARY (MELHORADO) */
 .movie-details {
     margin-top: auto;
     padding-top: 10px;
 }
 
-/* REMOVE A SETA PADRÃO DO DETAILS */
 .movie-details summary {
     list-style: none;
     outline: none;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .movie-details summary::-webkit-details-marker {
     display: none;
+}
+
+/* Indicador visual de expansão no summary */
+.movie-details summary::after {
+    content: '\f078'; /* Ícone chevron-down do FontAwesome */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 0.8rem;
+    color: var(--accent-red);
+    transition: transform 0.3s ease;
+}
+
+.movie-details[open] summary::after {
+    transform: rotate(180deg);
 }
 
 /* CONFIGURAÇÃO DAS 3 LINHAS INICIAIS */
@@ -124,32 +143,33 @@ header p {
     font-size: 0.9rem;
     color: var(--text-secondary);
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Trava em exatamente 3 linhas */
-    line-clamp: 3; /* Propriedade padrão para compatibilidade */
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.5;
     margin-bottom: 5px;
 }
 
-/* O LINK DE EXPANSÃO (TEXTO BRANCO) */
+/* LINK DE EXPANSÃO */
 .read-more-btn {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #FFFFFF; /* Branco solicitado */
+    color: var(--text-primary);
     text-decoration: underline;
     display: inline-block;
-    transition: opacity 0.3s;
+    transition: color 0.3s, opacity 0.3s;
 }
 
 .read-more-btn:hover {
-    opacity: 0.8;
+    color: var(--accent-red);
+    opacity: 1;
 }
 
-/* LÓGICA DE EXIBIÇÃO: QUANDO ABERTO */
+/* LÓGICA DE EXIBIÇÃO */
 .movie-details[open] .movie-overview-preview,
 .movie-details[open] .read-more-btn {
-    display: none; /* Esconde a prévia e o link para não duplicar o texto */
+    display: none;
 }
 
 .movie-overview-full {
@@ -157,6 +177,7 @@ header p {
     color: var(--text-secondary);
     line-height: 1.5;
     animation: fadeIn 0.4s ease-out;
+    padding-bottom: 10px;
 }
 
 @keyframes fadeIn {
@@ -164,7 +185,7 @@ header p {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* CONTAINER PRINCIPAL */
+/* GRID E CARDS */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -173,7 +194,6 @@ header p {
     flex: 1 0 auto;
 }
 
-/* GRID DE FILMES */
 .movies-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -181,7 +201,6 @@ header p {
     transition: opacity 0.3s ease;
 }
 
-/* CARD DE FILME */
 .movie-card {
     background: var(--bg-surface);
     border-radius: var(--radius);
@@ -197,10 +216,9 @@ header p {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
 }
 
-/* POSTER DO FILME */
 .movie-poster {
     position: relative;
-    padding-top: 150%; /* Proporção 2:3 padrão de pôster */
+    padding-top: 150%;
     background: #111;
 }
 
@@ -213,7 +231,6 @@ header p {
     object-fit: cover;
 }
 
-/* BADGE DE NOTA SOBRE A IMAGEM */
 .movie-rating-badge {
     position: absolute;
     top: 10px;
@@ -235,7 +252,6 @@ header p {
     color: var(--star-gold);
 }
 
-/* INFORMAÇÕES DO FILME */
 .movie-info {
     padding: 20px;
     flex: 1;
@@ -277,17 +293,6 @@ header p {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.movie-overview {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    display: -webkit-box;
-    -webkit-line-clamp: 6;   /*Limita a 6 linhas */
-    line-clamp: 6;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-top: auto; /* Empurra pro fundo do card */
 }
 
 /* PAGINAÇÃO */
@@ -336,7 +341,7 @@ header p {
     border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* LOADING SPINNER */
+/* LOADING E FOOTER */
 .loading-spinner {
     position: fixed;
     top: 50%;
@@ -365,7 +370,6 @@ header p {
     100% { transform: rotate(360deg); }
 }
 
-/* RODAPÉ */
 footer {
     background-color: #050608;
     color: var(--text-secondary);
@@ -402,7 +406,7 @@ footer a:hover {
     color: var(--accent-red);
 }
 
-/* MENSAGENS - SEM FILMES */
+/* MENSAGENS E RESPONSIVIDADE */
 .no-movies {
     grid-column: 1 / -1;
     text-align: center;
@@ -425,26 +429,14 @@ footer a:hover {
     color: var(--text-primary);
 }
 
-/* RESPONSIVIDADE */
 @media (max-width: 768px) {
     header h1 { font-size: 2rem; }
-    
-    .movies-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-    }
-    
-    .pagination {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
+    .movies-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+    .pagination { flex-direction: column; gap: 15px; }
     .pagination-btn { width: 100%; justify-content: center; }
 }
 
 @media (max-width: 480px) {
-    .movies-grid {
-        grid-template-columns: 1fr;
-    }
+    .movies-grid { grid-template-columns: 1fr; }
     .genre-select { width: 100%; }
 }
