@@ -1,115 +1,151 @@
-/* PSICOLOGIA DAS CORES E VARIÁVEIS GLOBAIS 
- * Dark Bg: Foco, imersão, sensação cinematográfica (reduz fadiga ocular)
- * Crimson Red: Energia, excitação, ação (botões e destaques)
- * Gold: Qualidade, prestígio (usado nas notas das estrelas)
- * Light Text: Alto contraste para fácil leitura
+/**
+ * ===========================================
+ * FOLHA DE ESTILOS - APLICAÇÃO DE FILMES TMDB
+ * ===========================================
+ *
+ * Este arquivo contém todos os estilos CSS para uma aplicação web
+ * de catálogo de filmes que consome a API do The Movie Database (TMDB).
+ *
+ * A aplicação apresenta:
+ * - Design dark com tema cinematográfico
+ * - Layout responsivo em grid
+ * - Cards interativos com hover effects
+ * - Sistema de filtros por gênero
+ * - Paginação infinita
+ * - Detalhes expansíveis de sinopse
+ * - Loading states e mensagens de erro
+ *
+ * ===========================================
  */
+
+/* ===========================================
+   PSICOLOGIA DAS CORES E VARIÁVEIS GLOBAIS
+   ===========================================
+   Dark Bg: Foco, imersão, sensação cinematográfica (reduz fadiga ocular)
+   Crimson Red: Energia, excitação, ação (botões e destaques)
+   Gold: Qualidade, prestígio (usado nas notas das estrelas)
+   Light Text: Alto contraste para fácil leitura
+   =========================================== */
 :root {
-    --bg-body: #0B0C10;        /* Fundo quase preto */
-    --bg-surface: #1F2833;     /* Fundo dos cartões (contraste sutil) */
-    --accent-red: #E50914;     /* Vermelho Netflix */
-    --accent-hover: #F40612;   /* Vermelho ativo */
-    --text-primary: #FFFFFF;   /* Texto principal branco */
+    /* Cores de fundo */
+    --bg-body: #0B0C10;        /* Fundo principal quase preto para imersão */
+    --bg-surface: #1F2833;     /* Fundo dos cartões com contraste sutil */
+
+    /* Cores de destaque */
+    --accent-red: #E50914;     /* Vermelho vibrante para botões e destaques */
+    --accent-hover: #F40612;   /* Vermelho mais intenso para estados hover */
+
+    /* Cores de texto */
+    --text-primary: #FFFFFF;   /* Texto principal branco para alto contraste */
     --text-secondary: #C5C6C7; /* Texto secundário acinzentado */
-    --star-gold: #F5C518;      /* Dourado IMDB */
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --radius: 12px;
+
+    /* Cores especiais */
+    --star-gold: #F5C518;      /* Dourado para estrelas de avaliação */
+
+    /* Propriedades reutilizáveis */
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra padrão para profundidade */
+    --radius: 12px;           /* Raio de borda padrão para cantos arredondados */
 }
 
-/* RESET E ESTILOS BASE */
+/* ===========================================
+   RESET E ESTILOS BASE
+   =========================================== */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Inclui padding e border na largura/altura total */
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-body);
-    color: var(--text-primary);
-    line-height: 1.6;
-    min-height: 100vh;
+    font-family: 'Inter', sans-serif; /* Fonte moderna e legível */
+    background-color: var(--bg-body); /* Fundo escuro para imersão */
+    color: var(--text-primary); /* Texto branco por padrão */
+    line-height: 1.6; /* Espaçamento entre linhas confortável */
+    min-height: 100vh; /* Ocupa pelo menos a altura da tela */
     display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
+    flex-direction: column; /* Layout vertical */
+    overflow-x: hidden; /* Previne scroll horizontal */
 }
 
-/* CABEÇALHO */
+/* ===========================================
+   CABEÇALHO DA PÁGINA
+   =========================================== */
 header {
     background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(11,12,16,0.8) 100%);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+    border-bottom: 1px solid rgba(255,255,255,0.05); /* Linha sutil na parte inferior */
     padding: 40px 20px;
     text-align: center;
     position: relative;
-    z-index: 10;
+    z-index: 10; /* Garante que fique acima de outros elementos */
 }
 
 .header-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1200px; /* Largura máxima para telas grandes */
+    margin: 0 auto; /* Centraliza horizontalmente */
 }
 
 header h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
+    font: 800 2.5rem sans-serif; /* Título grande e ousado */
     margin-bottom: 10px;
-    letter-spacing: -1px;
+    letter-spacing: -1px; /* Espaçamento reduzido para melhor legibilidade */
 }
 
 header h1 i {
-    color: var(--accent-red);
+    color: var(--accent-red); /* Ícone em vermelho para destaque */
     margin-right: 10px;
 }
 
 header p {
-    color: var(--text-secondary);
+    color: var(--text-secondary); /* Texto secundário para descrição */
     font-size: 1.1rem;
 }
 
-/* CONTAINER DE FILTROS */
+/* ===========================================
+   CONTROLE DE FILTROS
+   =========================================== */
 .filter-container {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centraliza os controles */
     align-items: center;
-    gap: 15px;
+    gap: 15px; /* Espaço entre elementos */
     margin-top: 30px;
 }
 
 .filter-container label {
-    font-weight: 600;
+    font-weight: 600; /* Texto em negrito */
     color: var(--text-secondary);
 }
 
 .genre-select {
     padding: 12px 24px;
-    border: 2px solid transparent;
-    border-radius: 30px;
-    font-size: 1rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    min-width: 220px;
+    border: 2px solid transparent; /* Borda invisível por padrão */
+    border-radius: 30px; /* Bordas muito arredondadas */
+    font: 600 1rem 'Inter', sans-serif;
+    min-width: 220px; /* Largura mínima */
     cursor: pointer;
     background-color: var(--bg-surface);
     color: var(--text-primary);
-    transition: all 0.3s ease;
-    appearance: none;
+    transition: all 0.3s ease; /* Transição suave para todas as propriedades */
+    appearance: none; /* Remove aparência nativa do select */
 }
 
 .genre-select:focus, .genre-select:hover {
-    border-color: var(--accent-red);
-    outline: none;
-    box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
+    border-color: var(--accent-red); /* Borda vermelha no foco/hover */
+    outline: none; /* Remove outline padrão */
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.2); /* Brilho vermelho sutil */
 }
 
-/* CONTAINER DE DETALHES E SUMMARY (MELHORADO) */
+/* ===========================================
+   SISTEMA DE DETALHES EXPANSÍVEIS DOS FILMES
+   =========================================== */
 .movie-details {
-    margin-top: auto;
+    margin-top: auto; /* Empurra para o final do card */
     padding-top: 10px;
 }
 
 .movie-details summary {
-    list-style: none;
+    list-style: none; /* Remove marcador padrão */
     outline: none;
     cursor: pointer;
     display: flex;
@@ -118,10 +154,9 @@ header p {
 }
 
 .movie-details summary::-webkit-details-marker {
-    display: none;
+    display: none; /* Remove seta padrão do Chrome */
 }
 
-/* Indicador visual de expansão no summary */
 .movie-details summary::after {
     content: '\f078'; /* Ícone chevron-down do FontAwesome */
     font-family: "Font Awesome 6 Free";
@@ -131,30 +166,29 @@ header p {
     bottom: 0;
     font-size: 0.8rem;
     color: var(--accent-red);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* Animação de rotação */
 }
 
 .movie-details[open] summary::after {
-    transform: rotate(180deg);
+    transform: rotate(180deg); /* Rotaciona quando expandido */
 }
 
-/* CONFIGURAÇÃO DAS 3 LINHAS INICIAIS */
+/* Preview da sinopse (3 linhas truncadas) */
 .movie-overview-preview {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    display: -webkit-box; /* Habilita line-clamp no WebKit */
+    -webkit-line-clamp: 3; /* Limita a 3 linhas */
+    line-clamp: 3; /* Padrão moderno */
     -webkit-box-orient: vertical;
-    overflow: hidden;
+    overflow: hidden; /* Esconde texto excedente */
     line-height: 1.5;
     margin-bottom: 5px;
 }
 
-/* LINK DE EXPANSÃO */
+/* Botão "Clique aqui para ver a sinopse completa" */
 .read-more-btn {
-    font-size: 0.85rem;
-    font-weight: 600;
+    font: 600 0.85rem sans-serif;
     color: var(--text-primary);
     text-decoration: underline;
     display: inline-block;
@@ -162,64 +196,98 @@ header p {
 }
 
 .read-more-btn:hover {
-    color: var(--accent-red);
+    color: var(--accent-red); /* Muda para vermelho no hover */
     opacity: 1;
 }
 
-/* LÓGICA DE EXIBIÇÃO */
+/* Esconde preview e botão quando expandido */
 .movie-details[open] .movie-overview-preview,
 .movie-details[open] .read-more-btn {
     display: none;
 }
 
+/* Sinopse completa quando expandida */
 .movie-overview-full {
     font-size: 0.9rem;
     color: var(--text-secondary);
     line-height: 1.5;
-    animation: fadeIn 0.4s ease-out;
+    animation: fadeIn 0.4s ease-out; /* Animação de entrada */
     padding-bottom: 10px;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-5px); } /* Começa invisível e deslocado */
+    to { opacity: 1; transform: translateY(0); } /* Termina visível na posição original */
 }
 
-/* GRID E CARDS */
+/* ===========================================
+   LAYOUT DO GRID DE FILMES
+   =========================================== */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1200px; /* Largura máxima do conteúdo */
+    margin: 0 auto; /* Centraliza horizontalmente */
     padding: 40px 20px;
     width: 100%;
-    flex: 1 0 auto;
+    flex: 1 0 auto; /* Ocupa espaço disponível, não encolhe */
 }
 
 .movies-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
-    transition: opacity 0.3s ease;
+    grid-template-columns: repeat(5, minmax(0, 1fr)); /* 5 colunas fixas para 2 fileiras (10 filmes) */
+    grid-auto-rows: auto;
+    gap: 30px; /* Espaço entre cards */
+    transition: opacity 0.3s ease; /* Transição suave para loading */
 }
 
+@media (max-width: 1280px) {
+    .movies-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .movies-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .movies-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 540px) {
+    .movies-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===========================================
+   CARDS INDIVIDUAIS DOS FILMES
+   =========================================== */
 .movie-card {
     background: var(--bg-surface);
     border-radius: var(--radius);
-    overflow: hidden;
+    overflow: hidden; /* Corta conteúdo que exceder */
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Layout vertical */
 }
 
 .movie-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    transform: translateY(-8px); /* Levanta o card no hover */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8); /* Sombra mais intensa */
 }
 
+/* ===========================================
+   ÁREA DO POSTER DO FILME
+   =========================================== */
 .movie-poster {
     position: relative;
-    padding-top: 150%;
-    background: #111;
+    padding-top: 150%; /* Aspect ratio 2:3 (padrão de posters) */
+    background: #111; /* Fundo escuro para posters que não carregam */
 }
 
 .movie-poster img {
@@ -228,62 +296,63 @@ header p {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Corta imagem para caber no container mantendo proporção */
 }
 
+/* Badge de avaliação posicionado sobre o poster */
 .movie-rating-badge {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
+    background: rgba(0,0,0,0.8); /* Fundo semi-transparente */
+    backdrop-filter: blur(5px); /* Efeito de desfoque */
     color: #fff;
     padding: 6px 12px;
     border-radius: 20px;
-    font-weight: 700;
-    font-size: 0.9rem;
+    font: 700 0.9rem sans-serif;
     display: flex;
     align-items: center;
-    gap: 5px;
-    border: 1px solid rgba(255,255,255,0.1);
+    gap: 5px; /* Espaço entre ícone e texto */
+    border: 1px solid rgba(255,255,255,0.1); /* Borda sutil */
 }
 
 .movie-rating-badge i {
-    color: var(--star-gold);
+    color: var(--star-gold); /* Ícone de estrela dourado */
 }
 
+/* ===========================================
+   CONTEÚDO INFORMATIVO DO FILME
+   =========================================== */
 .movie-info {
     padding: 20px;
-    flex: 1;
+    flex: 1; /* Ocupa espaço disponível */
     display: flex;
     flex-direction: column;
 }
 
 .movie-title {
-    font-size: 1.15rem;
-    font-weight: 700;
+    font: 700 1.15rem sans-serif;
     margin-bottom: 12px;
     color: var(--text-primary);
-    line-height: 1.3;
+    line-height: 1.3; /* Espaçamento entre linhas */
 }
 
 .movie-genres {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-wrap: wrap; /* Permite quebra de linha */
+    gap: 8px; /* Espaço entre tags */
     margin-bottom: 15px;
 }
 
 .genre-tag {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.05); /* Fundo muito sutil */
     border: 1px solid rgba(255,255,255,0.1);
     color: var(--text-secondary);
     padding: 4px 10px;
     border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font: 600 0.75rem sans-serif;
+    text-transform: uppercase; /* Tudo maiúsculo */
+    letter-spacing: 0.5px; /* Espaçamento entre letras */
 }
 
 .movie-release {
@@ -292,15 +361,17 @@ header p {
     margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 8px; /* Espaço entre ícone e texto */
 }
 
-/* PAGINAÇÃO */
+/* ===========================================
+   CONTROLES DE PAGINAÇÃO
+   =========================================== */
 .pagination {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centraliza controles */
     align-items: center;
-    gap: 20px;
+    gap: 20px; /* Espaço entre elementos */
     margin-top: 50px;
 }
 
@@ -310,30 +381,28 @@ header p {
     border-radius: 30px;
     background: var(--accent-red);
     color: white;
-    font-weight: 700;
-    font-size: 1rem;
+    font: 700 1rem sans-serif;
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 10px; /* Espaço entre ícone e texto */
 }
 
 .pagination-btn:hover:not(:disabled) {
-    background: var(--accent-hover);
-    transform: scale(1.05);
+    background: var(--accent-hover); /* Fundo mais intenso no hover */
+    transform: scale(1.05); /* Leve aumento no tamanho */
 }
 
 .pagination-btn:disabled {
-    background: var(--bg-surface);
+    background: var(--bg-surface); /* Fundo neutro quando desabilitado */
     color: var(--text-secondary);
-    cursor: not-allowed;
-    opacity: 0.7;
+    cursor: not-allowed; /* Cursor indicando não clicável */
+    opacity: 0.7; /* Transparência reduzida */
 }
 
 .page-info {
-    font-size: 1rem;
-    font-weight: 600;
+    font: 600 1rem sans-serif;
     color: var(--text-primary);
     background: var(--bg-surface);
     padding: 10px 20px;
@@ -341,42 +410,47 @@ header p {
     border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* LOADING E FOOTER */
+/* ===========================================
+   INDICADOR DE CARREGAMENTO
+   =========================================== */
 .loading-spinner {
-    position: fixed;
+    position: fixed; /* Fixo na tela */
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* Centralizado */
     background: rgba(31, 40, 51, 0.9);
     padding: 25px;
-    border-radius: 50%;
+    border-radius: 50%; /* Forma circular */
     box-shadow: var(--shadow);
-    display: none;
-    z-index: 1000;
+    display: none; /* Escondido por padrão */
+    z-index: 1000; /* Acima de outros elementos */
 }
 
 .loading-spinner.active {
-    display: block;
+    display: block; /* Mostra quando ativo */
 }
 
 .loading-spinner i {
     font-size: 2.5rem;
     color: var(--accent-red);
-    animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite; /* Animação de rotação contínua */
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); } /* Início da rotação */
+    100% { transform: rotate(360deg); } /* Rotação completa */
 }
 
+/* ===========================================
+   RODAPÉ DA PÁGINA
+   =========================================== */
 footer {
-    background-color: #050608;
+    background-color: #050608; /* Fundo muito escuro */
     color: var(--text-secondary);
     text-align: center;
     padding: 40px 20px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.05); /* Linha sutil no topo */
+    margin-top: auto; /* Empurra para o final da página */
 }
 
 footer a {
@@ -387,7 +461,7 @@ footer a {
 }
 
 footer a:hover {
-    color: var(--accent-red);
+    color: var(--accent-red); /* Destaque em vermelho no hover */
 }
 
 .api-credit {
@@ -403,40 +477,53 @@ footer a:hover {
 }
 
 .api-credit i {
-    color: var(--accent-red);
+    color: var(--accent-red); /* Ícone em vermelho */
 }
 
-/* MENSAGENS E RESPONSIVIDADE */
+/* ===========================================
+   MENSAGENS DE ESTADO E RESPONSIVIDADE
+   =========================================== */
 .no-movies {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1; /* Ocupa toda a largura do grid */
     text-align: center;
     padding: 80px 20px;
     background: var(--bg-surface);
     border-radius: var(--radius);
-    border: 1px dashed rgba(255,255,255,0.1);
+    border: 1px dashed rgba(255,255,255,0.1); /* Borda tracejada sutil */
 }
 
 .no-movies i {
     font-size: 4rem;
     color: var(--text-secondary);
     margin-bottom: 20px;
-    opacity: 0.5;
+    opacity: 0.5; /* Ícone semi-transparente */
 }
 
 .no-movies p {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font: 600 1.2rem sans-serif;
     color: var(--text-primary);
 }
 
+/* ===========================================
+   RESPONSIVIDADE - TELAS MÉDIAS (TABLETS)
+   =========================================== */
 @media (max-width: 768px) {
-    header h1 { font-size: 2rem; }
-    .movies-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-    .pagination { flex-direction: column; gap: 15px; }
-    .pagination-btn { width: 100%; justify-content: center; }
+    header h1 { font-size: 2rem; } /* Título menor */
+    .movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Cards menores */
+        gap: 20px; /* Gap reduzido */
+    }
+    .pagination {
+        flex-direction: column; /* Paginação vertical */
+        gap: 15px;
+    }
+    .pagination-btn { width: 100%; justify-content: center; } /* Botões full width */
 }
 
+/* ===========================================
+   RESPONSIVIDADE - TELAS PEQUENAS (CELULARES)
+   =========================================== */
 @media (max-width: 480px) {
-    .movies-grid { grid-template-columns: 1fr; }
-    .genre-select { width: 100%; }
+    .movies-grid { grid-template-columns: 1fr; } /* Um card por linha */
+    .genre-select { width: 100%; } /* Select ocupa toda largura */
 }
