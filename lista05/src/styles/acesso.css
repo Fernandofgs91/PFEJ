@@ -1,0 +1,22 @@
+.acesso-info {
+  background-color: #ffffff;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.acesso-info .container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.acesso-info h1 {
+  font-size: 48px;
+  font-weight: 600;
+  color: #0c326f;
+  margin-bottom: 15px;
+}
+
+.acesso-info p {
+  font-size: 20px;
+  color: #555;
+}
