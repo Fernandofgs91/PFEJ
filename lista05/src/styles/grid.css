@@ -1,0 +1,97 @@
+.grid {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 599px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-info {
+  background-color: #f5f5f5;
+  padding: 40px 20px 80px;
+}
+
+.grid-info .container {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* Desktop: 4 colunas (já definido acima) */
+
+/* Tablet: 2 colunas */
+@media (max-width: 1023px) {
+  .grid-info .container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Celular: 1 coluna */
+@media (max-width: 599px) {
+  .grid-info .container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* CARDS */
+.card {
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 40px 20px;
+
+  text-align: center;
+
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #123a73;
+
+  line-height: 1.4;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 150px;
+
+  transition: all 0.2s ease;
+}
+
+/* EFEITO HOVER (igual sites modernos gov) */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  cursor: pointer;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
